@@ -10,19 +10,34 @@
 
   <body>
     <header class="app-header">
-      <div class="logo">Fekete Macska Kávézó</div>
+      <div class="logo">☕ Fekete Macska Kávézó</div>
       <nav class="nav-links">
-        <%= link_to "Bejelentkezés", login_path %>
-        <%= link_to "Regisztráció", register_path %>
-        <%= link_to "Saját profil", dashboard_path %>
-        <%= link_to "Profil adatok", profile_path %>
-        <%= link_to "Ajánlatok", offers_path %>
-        <%= link_to "Kosár", cart_path %>
-        <%= link_to "Beállítások", settings_path %>
+        <% if current_user %>
+          <%= link_to "Kezdőlap", dashboard_path %>
+          <%= link_to "Profil adatok", profile_path %>
+          <%= link_to "Ajánlatok", offers_path %>
+          <%= link_to "Kosár", cart_path %>
+          <%= link_to "Beállítások", settings_path %>
+          <%= link_to "Kijelentkezés (#{current_user.first_name})", logout_path, data: { "turbo-method": :delete } %>
+        <% else %>
+          <%= link_to "Bejelentkezés", login_path %>
+          <%= link_to "Regisztráció", register_path %>
+        <% end %>
       </nav>
     </header>
 
     <main class="container">
+      <% if flash[:notice] %>
+        <div class="flash notice" style="background: #e8f5e9; color: #2e7d32; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #c8e6c9;">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+      <% if flash[:alert] %>
+        <div class="flash alert" style="background: #ffebee; color: #c62828; padding: 10px; margin-bottom: 15px; border-radius: 4px; border: 1px solid #ffcdd2;">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+
       <%= yield %>
     </main>
   </body>
