@@ -1,2 +1,51 @@
-<h1>Orders#new</h1>
-<p>Find me in app/views/orders/new.html.erb</p>
+<div class="card">
+  <h2>Kosarad</h2>
+
+  <ul class="cart-list">
+    <% @order.items.each do |item| %>
+      <li>
+        <span><%= item[:quantity] %>x <%= item[:name] %></span>
+        <span><%= item[:price] * item[:quantity] %> Ft</span>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="price-summary">
+    <p>Rendelés összege: <strong><%= @order.total %> Ft</strong></p>
+    <p>Kedvezmény (hűségpontok): <strong>-<%= @order.discount %> Ft</strong></p>
+    <p style="font-size: 1.1rem; color: #5d4037;"><strong>Fizetendő: <%= @order.total %> Ft</strong></p>
+  </div>
+
+  <hr />
+
+  <h3>Fizetés részletei</h3>
+  <%= form_with url: orders_path, method: :post, local: true do |f| %>
+    <div class="form-group">
+      <%= f.label :name, "Teljes név:" %>
+      <%= f.text_field :name, value: @user.name %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :phone, "Telefonszám:" %>
+      <%= f.text_field :phone, value: @user.phone %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :email, "Email cím:" %>
+      <%= f.email_field :email, value: @user.email %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :notes, "Kiegészítések:" %>
+      <%= f.text_area :notes, rows: 2, placeholder: "pl. Kevesebb cukorral" %>
+    </div>
+
+    <div class="form-group">
+      <label>Fizetési mód:</label><br />
+      <label><%= f.radio_button :payment_method, "cash", checked: true %> Készpénz</label>
+      <label style="margin-left: 15px;"><%= f.radio_button :payment_method, "card" %> Bankkártya</label>
+    </div>
+
+    <%= f.submit "Megrendelés leadása", class: "btn" %>
+  <% end %>
+</div>
