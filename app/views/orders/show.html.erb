@@ -7,18 +7,18 @@
 
   <h3>Megrendelés részletei</h3>
   <ul class="cart-list">
-    <% @order.items.each do |item| %>
+    <% @order.order_items.each do |item| %>
       <li>
-        <span><%= item[:quantity] %>x <%= item[:name] %></span>
-        <span><%= item[:price] * item[:quantity] %> Ft</span>
+        <span><%= item.quantity %>x <%= item.product.name %></span>
+        <span><%= item.unit_price * item.quantity %> Ft</span>
       </li>
     <% end %>
   </ul>
   <p>Kedvezmény: -<%= @order.discount %> Ft</p>
-  <p><strong>Végösszeg: <%= @order.total %> Ft</strong></p>
+  <p><strong>Végösszeg: <%= @order.calculated_total %> Ft</strong></p>
 
   <div class="loyalty-box">
-    +1 pont hozzáadva a fiókodhoz! (Új egyenleg: <%= @user.points + 1 %> / <%= @user.max_points %> pont)
+    +1 pont hozzáadva a fiókodhoz! (Új egyenleg: <%= @user.points %> / <%= @user.max_points %> pont)
   </div>
 
   <div style="margin-top: 25px;">
