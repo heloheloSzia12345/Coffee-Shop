@@ -1,0 +1,16 @@
+<div class="card">
+  <h2>Szia <%= @user.first_name %>! Jó újra látni.</h2>
+
+  <div class="loyalty-box" style="text-align: center; font-size: 1.2rem; padding: 18px;">
+    Jelenlegi állás: <strong><%= @user.points %> / <%= @user.max_points %> pont</strong>
+  </div>
+
+  <div class="actions" style="display: flex; gap: 10px; justify-content: center; margin-top: 20px;">
+    <%= link_to "Profil adatok", profile_path, class: "btn" %>
+    <%= link_to "Ajánlatok", offers_path, class: "btn" %>
+  </div>
+
+  <div style="margin-top: 25px; text-align: center;">
+    <%= link_to "Kijelentkezés", logout_path, data: { "turbo-method": :delete }, class: "btn btn-secondary" %>
+  </div>
+</div>

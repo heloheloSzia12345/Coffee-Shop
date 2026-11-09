@@ -1,0 +1,13 @@
+<div class="card">
+  <h2>Profil adatok</h2>
+  
+  <p><strong>Teljes név:</strong> <%= @user.name %></p>
+  <p><strong>Email cím:</strong> <%= @user.email %></p>
+  <p><strong>Bio:</strong> <%= @user.bio %></p>
+  <p><strong>Telefonszám:</strong> <%= @user.phone %></p>
+  <p><strong>Születési dátum:</strong> <%= @user.birth_date %></p>
+
+  <div style="margin-top: 25px;">
+    <%= link_to "Vissza a profilhoz", dashboard_path, class: "btn btn-secondary" %>
+  </div>
+</div>
