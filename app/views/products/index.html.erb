@@ -1,0 +1,31 @@
+<div class="card">
+  <h2>Szia <%= @user.first_name %>! Jó újra látni.</h2>
+  
+  <div class="search-bar">
+    <input type="text" placeholder=" Keresés..." />
+  </div>
+
+  <h3>Ajánlatok</h3>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Termék</th>
+        <th>Ár</th>
+        <th>Művelet</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= product.name %></td>
+          <td><%= product.price %> Ft</td>
+          <td><%= link_to "Rendelés", cart_path, class: "btn-sm" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div style="margin-top: 25px;">
+    <%= link_to "Tovább a kosárhoz", cart_path, class: "btn" %>
+  </div>
+</div>

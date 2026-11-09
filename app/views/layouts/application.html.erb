@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fekete Macska Kávézó</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", media: "all" %>
+  </head>
+
+  <body>
+    <header class="app-header">
+      <div class="logo">Fekete Macska Kávézó</div>
+      <nav class="nav-links">
+        <%= link_to "Bejelentkezés", login_path %>
+        <%= link_to "Regisztráció", register_path %>
+        <%= link_to "Saját profil", dashboard_path %>
+        <%= link_to "Profil adatok", profile_path %>
+        <%= link_to "Ajánlatok", offers_path %>
+        <%= link_to "Kosár", cart_path %>
+        <%= link_to "Beállítások", settings_path %>
+      </nav>
+    </header>
+
+    <main class="container">
+      <%= yield %>
+    </main>
+  </body>
+</html>

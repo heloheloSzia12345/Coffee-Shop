@@ -1,0 +1,17 @@
+<div class="card">
+  <h2>Beállítások</h2>
+
+  <%= form_with url: update_settings_path, method: :post, local: true do |f| %>
+    <div class="form-group">
+      <label for="language">Nyelv:</label>
+      <%= select_tag "language", options_for_select(@languages, "Magyar") %>
+    </div>
+
+    <div class="form-group-checkbox">
+      <%= check_box_tag "dark_mode", "1", false %>
+      <%= label_tag "dark_mode", "Sötét mód" %>
+    </div>
+
+    <%= f.submit "Mentés", class: "btn" %>
+  <% end %>
+</div>
