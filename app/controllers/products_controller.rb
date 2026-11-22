@@ -3,6 +3,10 @@ class ProductsController < ApplicationController
 
   def index
     @user = User.current_user
-    @products = Product.all
+    if params[:query].present?
+      @products = Product.where("name LIKE ?", "%#{params[:query]}%")
+    else
+      @products = Product.all
+    end
   end
 end

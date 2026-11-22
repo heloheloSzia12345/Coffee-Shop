@@ -30,6 +30,8 @@ class UsersController < ApplicationController
   end
 
   def update_settings
+    session[:language] = params[:language]
+    session[:dark_mode] = params[:dark_mode]
     flash[:notice] = "Beállítások elmentve!"
     redirect_to settings_path
   end
