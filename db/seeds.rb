@@ -27,6 +27,7 @@ croissant  = Product.create!(name: "Croissant", price: 800, category: "Péksüte
 order = Order.create!(
   user: user,
   order_number: "#FMK-2026-084",
+  status: "completed",
   discount: 0,
   notes: "Kevesebb cukorral",
   payment_method: "Készpénz",
