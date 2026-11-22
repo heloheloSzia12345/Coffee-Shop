@@ -158,3 +158,38 @@ body {
   margin: 15px 0;
   text-align: right;
 }
+
+body.dark-mode {
+  background-color: #181512;
+  color: #f0ebe6;
+}
+
+body.dark-mode .app-header {
+  background-color: #0f0d0b;
+  border-bottom: 1px solid #332a24;
+}
+
+body.dark-mode .card {
+  background-color: #24201c;
+  color: #f0ebe6;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background-color: #332d28;
+  color: #fff;
+  border-color: #554b43;
+}
+
+body.dark-mode .loyalty-box {
+  background-color: #362e28;
+  color: #ffe0b2;
+}
+
+body.dark-mode .data-table th,
+body.dark-mode .data-table td,
+body.dark-mode .cart-list li {
+  border-bottom-color: #3a332d;
+}

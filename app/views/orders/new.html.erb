@@ -1,50 +1,69 @@
 <div class="card">
   <h2>Kosarad</h2>
 
-  <ul class="cart-list">
-    <% if @order && @order.order_items.any? %>
+  <% if @order.order_items.any? %>
+    <ul class="cart-list">
       <% @order.order_items.each do |item| %>
-        <li>
-          <span><%= item.quantity %>x <%= item.product.name %></span>
-          <span><%= item.unit_price * item.quantity %> Ft</span>
+        <li style="align-items: center;">
+          <div>
+            <strong><%= item.product.name %></strong><br />
+            <small><%= item.unit_price %> Ft / db</small>
+          </div>
+          
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <%= button_to "-", decrease_cart_item_path(item.id), method: :patch, class: "btn-sm", style: "border: none; cursor: pointer;" %>
+            <span><strong><%= item.quantity %> db</strong></span>
+            <%= button_to "+", increase_cart_item_path(item.id), method: :patch, class: "btn-sm", style: "border: none; cursor: pointer;" %>
+            <span style="min-width: 75px; text-align: right; font-weight: bold;"><%= item.unit_price * item.quantity %> Ft</span>
+          </div>
         </li>
       <% end %>
-    <% else %>
-      <li>A kosár jelenleg üres.</li>
+    </ul>
+
+    <div class="price-summary">
+      <p>Rendelés összege: <strong><%= @order.subtotal %> Ft</strong></p>
+      <p style="font-size: 1.15rem;"><strong>Fizetendő: <%= @order.calculated_total %> Ft</strong></p>
+    </div>
+
+    <hr />
+
+    <h3>Fizetés részletei</h3>
+    <%= form_with url: orders_path, method: :post, local: true do |f| %>
+      <div class="form-group">
+        <%= f.label :name, "Teljes név:" %>
+        <%= f.text_field :name, value: @user.name, readonly: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :phone, "Telefonszám:" %>
+        <%= f.text_field :phone, value: @user.phone %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :notes, "Kiegészítések:" %>
+        <%= f.text_area :notes, rows: 2, placeholder: "pl. Kevesebb cukorral" %>
+      </div>
+
+      <% if @user.points >= 10 %>
+        <div class="form-group-checkbox loyalty-box">
+          <%= f.check_box :use_points %>
+          <%= f.label :use_points, "10 hűségpont beváltása (-500 Ft kedvezmény)!" %>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <label>Fizetési mód:</label><br />
+        <label><%= f.radio_button :payment_method, "Készpénz", checked: true %> Készpénz</label>
+        <label style="margin-left: 15px;"><%= f.radio_button :payment_method, "Bankkártya" %> Bankkártya</label>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+        <%= link_to "← További termékek", offers_path, class: "btn btn-secondary" %>
+        <%= f.submit "Megrendelés leadása", class: "btn" %>
+      </div>
     <% end %>
-  </ul>
-
-  <div class="price-summary">
-    <p>Rendelés összege: <strong><%= @order ? @order.calculated_total : 0 %> Ft</strong></p>
-    <p>Kedvezmény (hűségpontok): <strong>-<%= @order ? @order.discount : 0 %> Ft</strong></p>
-    <p style="font-size: 1.1rem; color: #5d4037;"><strong>Fizetendő: <%= @order ? @order.calculated_total : 0 %> Ft</strong></p>
-  </div>
-
-  <hr />
-
-  <h3>Fizetés részletei</h3>
-  <%= form_with url: orders_path, method: :post, local: true do |f| %>
-    <div class="form-group">
-      <%= f.label :name, "Teljes név:" %>
-      <%= f.text_field :name, value: @user.name, readonly: true %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :phone, "Telefonszám:" %>
-      <%= f.text_field :phone, value: @user.phone %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :notes, "Kiegészítések:" %>
-      <%= f.text_area :notes, rows: 2, placeholder: "pl. Kevesebb cukorral" %>
-    </div>
-
-    <div class="form-group">
-      <label>Fizetési mód:</label><br />
-      <label><%= f.radio_button :payment_method, "Készpénz", checked: true %> Készpénz</label>
-      <label style="margin-left: 15px;"><%= f.radio_button :payment_method, "Bankkártya" %> Bankkártya</label>
-    </div>
-
-    <%= f.submit "Megrendelés leadása", class: "btn" %>
+  <% else %>
+    <p>A kosarad jelenleg üres.</p>
+    <%= link_to "Irány az ajánlatokhoz", offers_path, class: "btn" %>
   <% end %>
 </div>

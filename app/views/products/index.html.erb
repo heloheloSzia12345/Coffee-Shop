@@ -1,9 +1,13 @@
 <div class="card">
   <h2>Szia <%= @user.first_name %>! Jó újra látni.</h2>
   
-  <div class="search-bar">
-    <input type="text" placeholder=" Keresés..." />
-  </div>
+  <%= form_with url: offers_path, method: :get, local: true, class: "search-form", style: "display: flex; gap: 8px; margin-bottom: 15px;" do |f| %>
+    <%= f.text_field :query, value: params[:query], placeholder: "🔍 Keresés az ajánlatok között...", style: "flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 4px;" %>
+    <%= f.submit "Keresés", class: "btn" %>
+    <% if params[:query].present? %>
+      <%= link_to "Törlés", offers_path, class: "btn btn-secondary" %>
+    <% end %>
+  <% end %>
 
   <h3>Ajánlatok</h3>
   <table class="data-table">
@@ -15,17 +19,26 @@
       </tr>
     </thead>
     <tbody>
-      <% @products.each do |product| %>
+      <% if @products.any? %>
+        <% @products.each do |product| %>
+          <tr>
+            <td><%= product.name %></td>
+            <td><%= product.price %> Ft</td>
+            <td>
+              <%= button_to "Kosárba +", add_to_cart_path(product.id), method: :post, class: "btn-sm", style: "border: none; cursor: pointer;" %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
         <tr>
-          <td><%= product.name %></td>
-          <td><%= product.price %> Ft</td>
-          <td><%= link_to "Rendelés", cart_path, class: "btn-sm" %></td>
+          <td colspan="3">Nincs a keresésnek megfelelő találat.</td>
         </tr>
       <% end %>
     </tbody>
   </table>
 
-  <div style="margin-top: 25px;">
-    <%= link_to "Tovább a kosárhoz", cart_path, class: "btn" %>
+  <div style="margin-top: 25px; display: flex; justify-content: space-between;">
+    <%= link_to "Vissza a profilhoz", dashboard_path, class: "btn btn-secondary" %>
+    <%= link_to "Tovább a kosárhoz →", cart_path, class: "btn" %>
   </div>
 </div>
