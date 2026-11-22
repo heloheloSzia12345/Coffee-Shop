@@ -1,0 +1,15 @@
+Using vips to process variants requires the libvips library. Please install libvips using the instructions on the libvips website.
+Started GET "/" for 127.0.0.1 at 2026-11-22 10:40:02 +0100
+  [1m[36mActiveRecord::SchemaMigration Load (2.2ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC /*application='CoffeeShop'*/[0m
+Processing by SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering sessions/new.html.erb within layouts/application
+  Rendered sessions/new.html.erb within layouts/application (Duration: 20.7ms | GC: 0.6ms)
+  Rendered layout layouts/application.html.erb (Duration: 37.6ms | GC: 1.7ms)
+Completed 200 OK in 855ms (Views: 59.1ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 129.2ms)
+
+
+Started GET "/favicon.ico" for 127.0.0.1 at 2026-11-22 10:40:03 +0100
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
