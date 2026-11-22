@@ -19,8 +19,11 @@ class User < ApplicationRecord
   def max_points
     10
   end
+	
+  def points
+    super || 0
+  end  
 
-  # Gyakorlati hitelesítés email és jelszó alapján:
   def self.authenticate(email, password)
     user = User.where(email: email).take
     user && user.authenticated?(password) ? user : nil

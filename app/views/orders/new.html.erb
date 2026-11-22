@@ -52,9 +52,15 @@
       <% end %>
 
       <div class="form-group">
-        <label>Fizetési mód:</label><br />
-        <label><%= f.radio_button :payment_method, "Készpénz", checked: true %> Készpénz</label>
-        <label style="margin-left: 15px;"><%= f.radio_button :payment_method, "Bankkártya" %> Bankkártya</label>
+        <label style="display: block; margin-bottom: 8px;">Fizetési mód:</label>
+        <div style="display: flex; gap: 24px; align-items: center;">
+          <label style="display: inline-flex; align-items: center; gap: 6px; width: auto; margin: 0; font-weight: normal; cursor: pointer;">
+            <%= f.radio_button :payment_method, "Készpénz", checked: true, style: "width: auto; margin: 0;" %> Készpénz
+          </label>
+          <label style="display: inline-flex; align-items: center; gap: 6px; width: auto; margin: 0; font-weight: normal; cursor: pointer;">
+            <%= f.radio_button :payment_method, "Bankkártya", style: "width: auto; margin: 0;" %> Bankkártya
+          </label>
+        </div>
       </div>
 
       <div style="display: flex; justify-content: space-between; margin-top: 20px;">

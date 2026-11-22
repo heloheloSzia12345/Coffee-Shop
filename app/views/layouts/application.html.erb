@@ -10,19 +10,19 @@
 
   <body class="<%= 'dark-mode' if session[:dark_mode] %>">
     <header class="app-header">
-      <div class="logo">☕ Fekete Macska Kávézó</div>
+      <div class="logo">☕ <%= tr(:app_title) %></div>
       <nav class="nav-links">
         <% if current_user %>
           <% cart_count = Order.current_cart_for(current_user).order_items.sum(:quantity) %>
-          <%= link_to "Kezdőlap", dashboard_path %>
-          <%= link_to "Profil adatok", profile_path %>
-          <%= link_to "Ajánlatok", offers_path %>
-          <%= link_to "Kosár (#{cart_count})", cart_path %>
-          <%= link_to "Beállítások", settings_path %>
-          <%= link_to "Kijelentkezés (#{current_user.first_name})", logout_path, data: { "turbo-method": :delete } %>
+          <%= link_to tr(:dashboard), dashboard_path %>
+          <%= link_to tr(:profile), profile_path %>
+          <%= link_to tr(:offers), offers_path %>
+          <%= link_to "#{tr(:cart)} (#{cart_count})", cart_path %>
+          <%= link_to tr(:settings), settings_path %>
+          <%= link_to "#{tr(:logout)} (#{current_user.first_name})", logout_path, data: { "turbo-method": :delete } %>
         <% else %>
-          <%= link_to "Bejelentkezés", login_path %>
-          <%= link_to "Regisztráció", register_path %>
+          <%= link_to tr(:login), login_path %>
+          <%= link_to tr(:register), register_path %>
         <% end %>
       </nav>
     </header>
